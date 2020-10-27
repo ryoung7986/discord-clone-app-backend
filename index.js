@@ -1,27 +1,15 @@
-'use strict'
-const express = require('express')
+const app = require('express')();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
 
-// Create the express app
-const app = express()
+app.get('/', (req, res) => {
+  res.sendFile('/home/ryoung7986/react/discord-clone-app/discord-clone-app/src/App.js');
+});
 
-// Routes and middleware
-// app.use(/* ... */)
-// app.get(/* ... */)
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
 
-// Error handlers
-app.use(function fourOhFourHandler (req, res) {
-  res.status(404).send()
-})
-app.use(function fiveHundredHandler (err, req, res, next) {
-  console.error(err)
-  res.status(500).send()
-})
-
-// Start server
-app.listen(1234, function (err) {
-  if (err) {
-    return console.error(err)
-  }
-
-  console.log('Started at http://localhost:1234')
-})
+http.listen(4000, () => {
+  console.log('listening on *:4000');
+});

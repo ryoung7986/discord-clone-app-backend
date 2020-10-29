@@ -1,21 +1,20 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('DirectMessages', {
+    return queryInterface.createTable('ServerUsers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      senderId: {
-        type: Sequelize.INTEGER
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
-      recipientId: {
-        type: Sequelize.INTEGER
-      },
-      message: {
-        type: Sequelize.STRING
+      serverId: {
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
@@ -28,6 +27,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('DirectMessages');
+    return queryInterface.dropTable('ServerUsers');
   }
 };

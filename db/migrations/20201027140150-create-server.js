@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       serverName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(255),
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

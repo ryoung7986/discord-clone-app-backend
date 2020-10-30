@@ -29,8 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   User.associate = function (models) {
-    User.belongsToMany(models.Server, { through: "ServerUser", otherKey: "serverId", foreignKey: "userId" })
-    User.hasMany(models.ChannelMessage, { foreignKey: "userId" })
+    // User.belongsToMany(models.Server, { through: "ServerUser", otherKey: "serverId", foreignKey: "userId" })
+    // User.hasMany(models.ChannelMessage, { foreignKey: "userId" })
   };
 
   User.prototype.isValid = () => true;

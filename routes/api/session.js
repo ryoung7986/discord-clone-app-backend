@@ -17,7 +17,7 @@ router.put(
         }
 
         const { email, password } = req.body;
-        const user = await UserRepository.findByEmail(email);
+        const user = await User.findByEmail(email);
         if (!user.isValidPassword(password)) {
             const err = new Error('Login failed');
             err.status = 401;

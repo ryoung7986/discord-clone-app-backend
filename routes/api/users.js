@@ -7,7 +7,9 @@ const {
     handleValidationErrors,
     validateUser,
     validationResult,
+    validateEmailAndPassword,
 } = require('../../validations');
+
 
 const router = express.Router();
 
@@ -18,6 +20,36 @@ router.get(
     asyncHandler(async (req, res) => {
         const users = await User.findAll();
         res.json(users);
+    })
+);
+
+router.put(
+    '/',
+    validateEmailAndPassword,
+    asyncHandler(async (req, res, next) => {
+        const errors = validationResult(req);
+        console.log("here");
+        if (!errors.isEmpty()) {
+            return next({ status: 422, errors: errors.array() });
+        }
+
+        const { email, password } = req.body;
+        const user = await User.findOne({
+            where: { email }
+        });
+
+        console.log(user);
+        if (!user || !user.isValidPassword(password)) {
+            const err = new Error('Login failed');
+            err.status = 401;
+            err.title = 'Login failed';
+            err.errors = ['Invalid credentials'];
+            return next(err);
+        }
+        const { jti, token } = generateToken(user);
+        user.tokenId = jti;
+        await user.save();
+        res.json({ token, user: user.toSafeObject() });
     })
 );
 

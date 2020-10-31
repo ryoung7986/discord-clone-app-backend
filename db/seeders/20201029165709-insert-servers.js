@@ -3,8 +3,8 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Servers', [
-      { serverName: 'Super Cool Server', createdAt: new Date(), updatedAt: new Date() },
-      { serverName: 'Slightly less cool but still super', createdAt: new Date(), updatedAt: new Date() }
+      { serverName: 'Super Cool Server', ownerId: 1, createdAt: new Date(), updatedAt: new Date() },
+      { serverName: 'Slightly less cool but still super', ownerId: 1, createdAt: new Date(), updatedAt: new Date() }
     ], {});
   },
 

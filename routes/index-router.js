@@ -4,7 +4,9 @@ const router = require('express').Router();
 
 const routes = [
     'users',
-    'session'
+    'messages',
+    'servers',
+    'channels'
 ];
 
 for (let route of routes) {

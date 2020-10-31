@@ -14,11 +14,21 @@ module.exports = {
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: {
+            tableName: 'Users',
+          },
+        },
       },
-      serverId: {
+      channelId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: {
+            tableName: 'Channels'
+          }
+        }
       },
       createdAt: {
         allowNull: false,

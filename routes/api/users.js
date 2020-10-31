@@ -49,7 +49,7 @@ router.put(
         const { jti, token } = generateToken(user);
         user.tokenId = jti;
         await user.save();
-        res.json({ token, user: user.toSafeObject() });
+        res.json({ token, userId: user.id });
     })
 );
 
@@ -83,7 +83,6 @@ router.post(
     })
 );
 
-//* I'm not sure what this is doing, but wanted to leave it for now
 // router.get('/me', authenticated, (req, res) => {
 //     res.json({
 //         email: req.user.email,

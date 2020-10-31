@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Channel.associate = function (models) {
-    Channel.hasMany(models.ChannelMessage, { foreignKey: "userId" })
-    Channel.hasOne(models.Server, { foreignKey: "serverId" })
+    Channel.hasMany(models.ChannelMessage, { foreignKey: "channelId" })
+    Channel.belongsTo(models.Server, { foreignKey: "serverId" })
   };
   return Channel;
 };

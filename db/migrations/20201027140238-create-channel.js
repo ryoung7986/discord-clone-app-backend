@@ -10,11 +10,21 @@ module.exports = {
       },
       serverId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: {
+            tableName: 'Servers',
+          }
+        }
       },
       userId: {
         type: Sequelize.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: {
+            tableName: 'Users',
+          }
+        }
       },
       channelName: {
         type: Sequelize.STRING(255),

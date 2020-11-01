@@ -10,11 +10,11 @@ const { Channel, ChannelMessage } = db;
 // router.use(authenticated);
 
 router.get(
-    "/:id",
+    "/:channelId",
     asyncHandler(async (req, res) => {
         const channels = await Channel.findAll({
             where: {
-                userId: req.params.id
+                userId: req.params.channelId
             }
         })
         res.json(channels);
@@ -22,15 +22,17 @@ router.get(
 )
 
 router.get(
-    "/:id/messages",
+    "/:channelId/messages",
     asyncHandler(async (req, res) => {
         const messages = await ChannelMessage.findAll({
             where: {
-                channelId: req.params.id
+                channelId: req.params.channelId
             }
         })
         res.json(messages);
     })
 )
+
+
 
 module.exports = router;

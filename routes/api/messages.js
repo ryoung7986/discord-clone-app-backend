@@ -7,7 +7,7 @@ const db = require("../../db/models");
 
 const { ChannelMessage, User } = db;
 
-router.use(authenticated);
+// router.use(authenticated);
 
 router.get(
     "/",

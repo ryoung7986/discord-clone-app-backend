@@ -1,6 +1,6 @@
 const express = require('express');
 const UserRepository = require('../../db/user-repository')
-const { User } = require('../../db/models');
+const { User, Channel } = require('../../db/models');
 const { asyncHandler } = require('../../utils');
 const { authenticated, generateToken } = require('./security-utils');
 const {
@@ -9,7 +9,7 @@ const {
     validationResult,
     validateEmailAndPassword,
 } = require('../../validations');
-
+const app = require('../../app');
 
 const router = express.Router();
 
@@ -28,17 +28,23 @@ router.put(
     validateEmailAndPassword,
     asyncHandler(async (req, res, next) => {
         const errors = validationResult(req);
-        console.log("here");
+
         if (!errors.isEmpty()) {
             return next({ status: 422, errors: errors.array() });
         }
 
         const { email, password } = req.body;
+
         const user = await User.findOne({
             where: { email }
         });
 
-        console.log(user);
+        const userChannels = await Channel.findAll({
+            where: {
+                userId: user.id
+            }
+        });
+
         if (!user || !user.isValidPassword(password)) {
             const err = new Error('Login failed');
             err.status = 401;
@@ -49,7 +55,7 @@ router.put(
         const { jti, token } = generateToken(user);
         user.tokenId = jti;
         await user.save();
-        res.json({ token, userId: user.id });
+        res.json({ token, user, userChannels });
     })
 );
 

@@ -9,19 +9,19 @@ const path = require('path');
 const { environment } = require('./config');
 const { Channel } = require('./db/models');
 
-const whitelist = ['http://localhost:3000'];
-const corsOptions = {
-  credentials: true, // This is important.
-  origin: (origin, callback) => {
-    if (whitelist.includes(origin)) {
-      return callback(null, true)
-    }
-    callback(new Error('Not allowed by CORS'));
-  }
-}
+// const whitelist = ['http://localhost:3000'];
+// const corsOptions = {
+//   credentials: true, // This is important.
+//   origin: (origin, callback) => {
+//     if (whitelist.includes(origin)) {
+//       return callback(null, true)
+//     }
+//     callback(new Error('Not allowed by CORS'));
+//   }
+// }
 
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors({ credentials: true, origin: true }));
 
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);

@@ -33,6 +33,18 @@ router.get(
     })
 )
 
+router.get(
+    "/:serverId",
+    asyncHandler(async (req, res) => {
+        const channels = await Channel.findAll({
+            where: {
+                serverId: req.params.serverId
+            }
+        })
+        res.json(channels);
+    })
+)
+
 
 
 module.exports = router;

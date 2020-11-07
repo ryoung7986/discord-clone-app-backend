@@ -9,17 +9,17 @@ const { Channel, ChannelMessage } = db;
 
 // router.use(authenticated);
 
-router.get(
-    "/:channelId",
-    asyncHandler(async (req, res) => {
-        const channels = await Channel.findAll({
-            where: {
-                userId: req.params.channelId
-            }
-        })
-        res.json(channels);
-    })
-)
+// router.get(
+//     "/:channelId",
+//     asyncHandler(async (req, res) => {
+//         const channels = await Channel.findAll({
+//             where: {
+//                 id: req.params.channelId
+//             }
+//         })
+//         res.json(channels);
+//     })
+// )
 
 router.get(
     "/:channelId/messages",
